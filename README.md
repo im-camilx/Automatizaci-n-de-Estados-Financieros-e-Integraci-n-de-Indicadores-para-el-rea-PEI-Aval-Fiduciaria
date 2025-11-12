@@ -1,0 +1,2 @@
+# Automatizaci-n-de-Estados-Financieros-e-Integraci-n-de-Indicadores-para-el-rea-PEI-Aval-Fiduciaria
+Proyecto de innovación operativa enfocado en automatizar la generación de estados financieros del área PEI en Aval Fiduciaria. Se diseñó una arquitectura flexible y parametrizable en Excel, integrando Power Query, macros VBA y análisis financiero automatizado, para reducir tiempos, minimizar errores y mejorar la calidad de la información contable.
