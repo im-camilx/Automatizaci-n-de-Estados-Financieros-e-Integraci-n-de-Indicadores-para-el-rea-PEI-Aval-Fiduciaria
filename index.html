@@ -1,223 +1,644 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Automatización de Estados Financieros — Aval Fiduciaria</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
-  <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet" />
-  <style>
-    body {font-family:'Inter', sans-serif; margin:0; background:linear-gradient(120deg,#030b1b 0%,#081c36 100%); color:#e6eef6; overflow-x:hidden;}
-    /* header: oscuro por defecto; solo el recuadro del logo será blanco */
-    header {text-align:center; margin-bottom:50px; padding-top:30px; position:relative;}
-    header .logo-box {position:absolute; top:18px; left:30px; background:white; padding:8px; border-radius:10px; box-shadow:0 6px 18px rgba(0,0,0,0.4);}
-    header .logo-box img{width:180px; display:block}
-    header h1 {font-size:38px; margin-bottom:10px; color:#00d4ff; text-shadow:0 0 10px rgba(0,212,255,0.12); animation:fadeInDown 1.2s ease-in-out;}
-    header p {color:#9aa4b2; font-size:16px; margin-bottom:10px;}
-    .team {display:flex; flex-wrap:wrap; justify-content:center; gap:14px; margin-top:10px;}
-    .member {background:linear-gradient(90deg,#00d4ff,#0084ff); color:white; border-radius:50px; padding:10px 20px; font-weight:600; transition:transform 0.3s;}
-    .member:hover {transform:scale(1.05);}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Poster: Automatización de EEFF – Aval Fiduciaria</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Roboto:wght[300;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
 
-    .nav {position:sticky; top:0; background:rgba(0,0,0,0.8); backdrop-filter:blur(8px); display:flex; justify-content:center; gap:20px; padding:12px 0; z-index:10;}
-    .nav a {color:#e6eef6; text-decoration:none; font-weight:600; transition:color 0.3s;}
-    .nav a:hover {color:#00d4ff;}
+    <style>
+        /* Variables de Color (Esquema Corporativo) */
+        :root {
+            --color-primary: #004790; /* Azul Oscuro Corporativo (Aval) */
+            --color-secondary: #0080ff; /* Azul Vibrante para acentos (Profesional, más moderno) */
+            --color-background: #f4f6f9; /* Fondo muy claro y limpio */
+            --color-text-dark: #2c3e50; /* Gris Oscuro Elegante */
+            --color-text-light: #ffffff;
+            --color-highlight: #ffc107; /* Amarillo para resaltar impacto */
+            --color-success: #2ecc71; /* Verde moderno */
+            --color-danger: #e74c3c; /* Rojo moderno */
+            --color-card-shadow: 0 4px 16px rgba(0,0,0,0.08); /* Sombra más suave */
+        }
 
-    .grid {display:grid; grid-template-columns:repeat(auto-fit,minmax(380px,1fr)); gap:20px; margin-top:20px;}
-    section {background:rgba(255,255,255,0.04); border-radius:14px; padding:24px; box-shadow:0 4px 20px rgba(0,0,0,0.4); margin:20px; transition:transform 0.3s, background 0.3s;}
-    section:hover {transform:translateY(-6px); background:rgba(255,255,255,0.07);}
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: var(--color-background);
+            color: var(--color-text-dark);
+            line-height: 1.6;
+            font-size: 16px;
+        }
 
-    h2 {color:#00d4ff; font-size:22px; border-left:4px solid #00d4ff; padding-left:10px; margin-bottom:10px;}
-    p,li {font-size:15px; line-height:1.6; color:#d1d5db;}
-    ul {margin-left:20px;}
+        /* Contenedor principal: Estilo de tarjeta/póster */
+        .container {
+            width: 95%;
+            max-width: 1400px; /* Ancho un poco mayor para más aire */
+            margin: 30px auto;
+            background: var(--color-text-light);
+            padding: 50px; /* Más padding para aire */
+            box-shadow: var(--color-card-shadow);
+            border-radius: 20px;
+            border-top: 10px solid var(--color-primary); /* Línea superior corporativa */
+            transition: all 0.3s ease;
+        }
 
-    canvas {max-width:100%; height:250px; margin-top:10px;}
+        /* Encabezados y Títulos */
+        h1 {
+            text-align: center;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 3em; /* Tamaño impactante */
+            font-weight: 800;
+            color: var(--color-primary);
+            margin-bottom: 5px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            /* Estilo de línea de fondo más limpio */
+            padding-bottom: 10px;
+            position: relative;
+        }
+        h1:after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: var(--color-secondary);
+            margin: 10px auto 0;
+            border-radius: 2px;
+        }
 
-    .legend {display:flex; justify-content:center; gap:20px; margin:10px 0; flex-wrap:wrap;}
-    .legend-item {display:flex; align-items:center; gap:6px;}
-    .color-box {width:14px; height:14px; border-radius:3px;}
+        .subtitle {
+            text-align: center;
+            font-size: 1.3em;
+            color: #6c757d;
+            margin-bottom: 40px;
+            font-style: italic;
+            font-weight: 400;
+        }
 
-    .kanban {display:flex; gap:20px; justify-content:space-around; flex-wrap:wrap;}
-    .kanban-column {border-radius:10px; width:30%; min-width:250px; padding:10px; color:white;}
-    .kanban-column:nth-child(1){background:linear-gradient(180deg,#ffb703,#fb8500);} /* Pendiente */
-    .kanban-column:nth-child(2){background:linear-gradient(180deg,#219ebc,#023047);} /* En progreso */
-    .kanban-column:nth-child(3){background:linear-gradient(180deg,#00b4d8,#0077b6);} /* Completado */
-    .kanban h3 {border-bottom:1px solid rgba(255,255,255,0.2); padding-bottom:5px;}
-    .task {background:rgba(255,255,255,0.15); margin:8px 0; padding:10px; border-radius:6px;}
+        h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.8em;
+            font-weight: 700;
+            color: var(--color-text-dark); /* Títulos en gris oscuro para elegancia */
+            margin-top: 35px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding-left: 10px;
+            border-left: 5px solid var(--color-secondary); /* Borde lateral elegante */
+        }
 
-    .example-note {font-size:12px; color:#9aa4b2; text-align:center; margin-top:8px;}
+        h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1em;
+            font-weight: 600;
+            color: var(--color-primary); /* Subtítulos en azul corporativo */
+            margin-top: 15px;
+            margin-bottom: 10px;
+        }
 
-    footer {text-align:center; font-size:14px; color:#9aa4b2; margin:40px 0;}
+        /* Diseño de Columnas (Grid) */
+        .poster-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* Tres columnas uniformes */
+            gap: 30px; /* Espacio generoso entre columnas */
+            margin-top: 30px;
+        }
+        
+        .full-width {
+            grid-column: 1 / -1; /* Ocupa todas las columnas */
+        }
+        
+        /* * */
+        /* CORRECCIÓN: Se eliminó grid-row: span 2 para estabilizar el diseño */
+        .column-2 {
+            /* Ya no hay grid-row: span 2; */
+        }
+        /* * */
 
-    @keyframes fadeInDown {from{opacity:0;transform:translateY(-20px);}to{opacity:1;transform:translateY(0);}}
-  </style>
+        /* Box de Palabras Clave: Estilo de "tags" */
+        .keywords-box {
+            background: var(--color-background);
+            padding: 15px;
+            border: 1px dashed #ced4da;
+            border-radius: 12px;
+            margin: 20px 0;
+            text-align: center;
+            font-weight: 400;
+            line-height: 2;
+        }
+        .keywords-box strong {
+            color: var(--color-primary);
+            font-weight: 700;
+            margin-right: 10px;
+            font-size: 1.1em;
+        }
+        .keyword-tag {
+            display: inline-block;
+            background: #e9ecef;
+            color: var(--color-text-dark);
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 0.9em;
+            margin: 3px;
+        }
+
+        /* Resaltado de Resultados y KPIs: Tarjeta de impacto */
+        .results-box {
+            background: linear-gradient(135deg, var(--color-primary), #0056b3); /* Gradiente sutil */
+            color: var(--color-text-light);
+            padding: 30px;
+            border-radius: 12px;
+            margin: 20px 0;
+            box-shadow: 0 10px 20px rgba(0, 71, 144, 0.2);
+            text-align: left;
+        }
+        /* ESTILOS ESPECÍFICOS PARA INDICADORES CLAVE (DENTRO DE LA COLUMNA 2 AHORA) */
+        .column-2 .results-box[style*="background: var(--color-background)"] {
+            background: var(--color-background) !important;
+            color: var(--color-text-dark) !important;
+            padding: 20px;
+            border: 2px solid var(--color-secondary) !important; /* Más visible */
+            box-shadow: 0 4px 4px rgba(0,0,0,0.1) !important;
+        }
+        .column-2 .results-box[style*="background: var(--color-background)"] strong {
+            color: var(--color-primary) !important;
+        }
+        .column-2 .results-box[style*="background: var(--color-background)"] .metric {
+            color: var(--color-text-dark) !important;
+        }
+        /* FIN DE ESTILOS ESPECÍFICOS */
+
+        .results-box strong {
+            display: block;
+            font-size: 1.2em;
+            margin-bottom: 20px;
+            color: var(--color-highlight);
+            text-align: center;
+            text-transform: uppercase;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+        }
+
+        .metric {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 1.1em;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        .metric:last-child {
+            border-bottom: none;
+        }
+        
+        .metric .value {
+            font-weight: 700;
+            color: var(--color-highlight);
+            font-size: 1em;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        /* KPI Grid */
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .kpi-card {
+            background: var(--color-background);
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+            text-align: center;
+            border-bottom: 4px solid var(--color-secondary);
+        }
+
+        .kpi-card .kpi-value {
+            font-size: 1.8em;
+            font-weight: 800;
+            color: var(--color-primary);
+            margin: 5px 0;
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        .kpi-card .kpi-label {
+            font-size: 0.9em;
+            color: #6c757d;
+            font-weight: 600;
+        }
+
+
+        /* Iconografía y Diagramas */
+        .icon-text {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 20px;
+            padding: 10px;
+            border-left: 3px solid #dee2e6;
+        }
+        .icon-text .material-icons-sharp {
+            font-size: 2.5em;
+            margin-right: 15px;
+            color: var(--color-secondary);
+            flex-shrink: 0;
+            line-height: 1; /* Asegura que el ícono no desplace la línea base */
+        }
+        .icon-text p {
+            margin: 0;
+        }
+        .icon-text strong {
+            color: var(--color-primary);
+            font-weight: 700;
+        }
+
+        .diagram-placeholder {
+            text-align: center;
+            margin: 20px 0;
+            padding: 40px 20px;
+            background: #e9ecef;
+            border-radius: 12px;
+            border: 3px dashed var(--color-secondary);
+            font-size: 1em;
+            font-style: italic;
+            color: #495057;
+            font-weight: 600;
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Listas mejoradas */
+        ul {
+            list-style: none;
+            padding-left: 0;
+            margin-top: 10px;
+        }
+        ul li {
+            padding-left: 15px; /* Más espacio para el ícono */
+            position: relative;
+            margin-bottom: 4px;
+            font-size: 1em;
+        }
+        ul li:before {
+            content: "fiber_manual_record"; /* Ícono de punto de Material Icons */
+            font-family: 'Material Icons Sharp';
+            color: var(--color-secondary);
+            font-size: 1.1em;
+            display: inline-block;
+            width: 20px;
+            margin-left: -15px;
+            position: absolute;
+            left: 0;
+        }
+        /* Listas de Alcances */
+        .section-2-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 10px;
+            padding: 15px;
+            background: #fcfcfc;
+            border-radius: 10px;
+            box-shadow: 0 1px 5px rgba(0,0,0,0.05);
+        }
+        .section-2-col .incluye { border-right: 1px solid #e9ecef; padding-right: 15px; }
+        .section-2-col .no-incluye { padding-left: 15px; }
+
+        .section-2-col ul li:before {
+            content: "check_circle";
+            color: var(--color-success);
+        }
+        .section-2-col .no-incluye ul li:before {
+            content: "cancel";
+            color: var(--color-danger);
+        }
+
+        /* Autores */
+        .authors {
+            text-align: center;
+            font-size: 1em;
+            color: var(--color-text-dark);
+            margin-bottom: 40px;
+            border-top: 1px solid #dee2e6;
+            padding-top: 20px;
+            line-height: 1;
+        }
+        .authors strong {
+            font-size: 1.2em;
+            color: var(--color-primary);
+            display: block;
+            margin-bottom: 10px;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .authors-list {
+            display: flex;
+            justify-content: center;
+            gap: 15px 30px;
+            margin-top: 10px;
+            flex-wrap: wrap;
+        }
+
+        .authors-list p {
+            margin: 2px 0;
+            padding: 4px 15px;
+            background: #eef4ff;
+            border-radius: 20px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+            font-weight: 500;
+            color: var(--color-text-dark);
+            transition: background 0.2s;
+        }
+        .authors-list p:hover {
+            background: var(--color-secondary);
+            color: var(--color-text-light);
+        }
+
+        /* Footer */
+        .footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #e9ecef;
+            font-size: 0.85em;
+            text-align: center;
+            color: #6c757d;
+        }
+
+        /* Estilo de Referencias */
+        .references-list {
+            font-size: 0.9em;
+            font-family: 'Roboto', sans-serif;
+            list-style: disc;
+            padding-left: 20px;
+        }
+        .references-list li:before {
+            content: none;
+        }
+        .references-list li {
+            padding-left: 0;
+            margin-bottom: 5px;
+            list-style-type: disc;
+            color: #495057;
+        }
+        
+        /* Media Queries para Adaptabilidad */
+        @media (max-width: 1024px) {
+            .poster-grid {
+                grid-template-columns: 1fr 1fr; /* 2 columnas en tablets */
+            }
+            .column-2 {
+                grid-row: auto; /* Desactiva el span en la columna 2 */
+            }
+            h1 {
+                font-size: 2.5em;
+            }
+            .container {
+                padding: 30px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .poster-grid {
+                grid-template-columns: 1fr; /* 1 columna en móviles */
+            }
+            .section-2-col {
+                grid-template-columns: 1fr; /* 1 columna para alcances */
+            }
+            .section-2-col .incluye { border-right: none; padding-right: 0; border-bottom: 1px solid #e9ecef; padding-bottom: 15px; }
+            .section-2-col .no-incluye { padding-left: 0; }
+            .kpi-grid {
+                grid-template-columns: 1fr;
+            }
+            .authors-list {
+                flex-direction: column;
+                align-items: center;
+            }
+            h1 {
+                font-size: 2em;
+                letter-spacing: 1px;
+            }
+        }
+    </style>
 </head>
+
+
 <body>
-  <div class="nav">
-    <a href="#resumen">Resumen</a>
-    <a href="#objetivos">Objetivos</a>
-    <a href="#resultados">Resultados</a>
-    <a href="#indicadores">Indicadores</a>
-    <a href="#metodologia">Metodología</a>
-    <a href="#impacto">Impacto</a>
-    <a href="#kanban">Kanban</a>
-    <a href="#beneficios">Beneficios</a>
-    <a href="#conclusiones">Conclusiones</a>
-  </div>
+<div class="container">
 
-  <header>
-    <div class="logo-box" aria-hidden="true"><img src="logo.jpg.png" alt="Logo Aval Fiduciaria"></div>
-    <h1 data-aos="fade-down">Automatización de Estados Financieros e Integración de Indicadores</h1>
-    <p data-aos="fade-up">Proyecto de Excelencia</p>
-    <p data-aos="fade-up">Universidad de Los Andes | Corficolombiana</p>
-    <div class="team" data-aos="zoom-in">
-      <div class="member">Juan Camilo Posso Murillo</div>
-      <div class="member">Kelin Lorena Ortiz Rojas</div>
-      <div class="member">Laura Ximena Arias Vásquez</div>
-      <div class="member">Yamileth Sánchez</div>
-      <div class="member">Yeison Samuel Parra Cuéllar</div>
+    <h1>Automatización de Estados Financieros e Integración de Indicadores</h1>
+    <div class="subtitle">Proyecto de Optimización Operativa para el Área PEI – Aval Fiduciaria</div>
+
+    <div class="authors">
+        <strong>Presentado por:</strong>
+        <div class="authors-list">
+            <p>Juan Camilo Posso Murillo</p>
+            <p>Kelin Lorena Ortiz Rojas</p>
+            <p>Laura Ximena Arias Vasquez</p>
+            <p>Yamileth Sanchez</p>
+            <p>Yeison Samuel Parra Cuellar</p>
+        </div>
+        <p style="margin-top: 15px; font-style: italic; color: #495057;">Cali, Valle del Cauca, 19 de noviembre de 2025.</p>
     </div>
-  </header>
 
-  <main class="grid">
-    <section id="resumen" data-aos="fade-up">
-      <h2>Resumen Ejecutivo</h2>
-      <p>Proyecto de optimización del proceso contable en Aval Fiduciaria mediante automatización, uso de Power Query, macros y análisis financiero inteligente. Mejora la precisión, reduce tiempos y fortalece la toma de decisiones.</p>
-      <canvas id="chartResumen"></canvas>
-      <div class="legend">
-        <div class="legend-item"><div class="color-box" style="background:#00d4ff;"></div><span>Procesos automatizados</span></div>
-        <div class="legend-item"><div class="color-box" style="background:#003566;"></div><span>Procesos manuales</span></div>
-      </div>
-      <p class="example-note">*Ejemplo de visualización del avance de automatización.</p>
-    </section>
+    <div class="poster-grid">
 
-    <section id="objetivos" data-aos="fade-left">
-      <h2>Objetivos del Proyecto</h2>
-      <ul>
-        <li>Automatizar la generación de estados financieros.</li>
-        <li>Integrar indicadores financieros clave para análisis estratégico.</li>
-        <li>Reducir tiempo operativo en más de 80%.</li>
-        <li>Disminuir errores manuales y mejorar precisión.</li>
-        <li>Capacitar al equipo PEI en herramientas tecnológicas avanzadas.</li>
-      </ul>
-    </section>
-
-    <section id="resultados" data-aos="fade-right">
-      <h2>Resultados Clave</h2>
-      <canvas id="chartResultados"></canvas>
-      <div class="legend">
-        <div class="legend-item"><div class="color-box" style="background:#00d4ff;"></div><span>Tiempo</span></div>
-        <div class="legend-item"><div class="color-box" style="background:#00b4d8;"></div><span>Tamaño</span></div>
-        <div class="legend-item"><div class="color-box" style="background:#90e0ef;"></div><span>Ahorro</span></div>
-      </div>
-      <p class="example-note">*Ejemplo ilustrativo de resultados simulados para presentación.</p>
-    </section>
-
-    <section id="indicadores" data-aos="zoom-in">
-      <h2>Indicadores Financieros Integrados</h2>
-      <canvas id="chartIndicadores"></canvas>
-      <div class="legend">
-        <div class="legend-item"><div class="color-box" style="background:#00d4ff;"></div><span>Liquidez</span></div>
-        <div class="legend-item"><div class="color-box" style="background:#00b4d8;"></div><span>Rentabilidad</span></div>
-        <div class="legend-item"><div class="color-box" style="background:#0077b6;"></div><span>Endeudamiento</span></div>
-        <div class="legend-item"><div class="color-box" style="background:#90e0ef;"></div><span>Margen</span></div>
-        <div class="legend-item"><div class="color-box" style="background:#48cae4;"></div><span>Rotación</span></div>
-      </div>
-      <p class="example-note">*Ejemplo de radar financiero con datos simulados.</p>
-    </section>
-
-    <section id="impacto" data-aos="fade-up">
-      <h2>Impacto y Alcance</h2>
-      <canvas id="chartImpacto"></canvas>
-      <div class="legend">
-        <div class="legend-item"><div class="color-box" style="background:#00d4ff;"></div><span>Eficiencia</span></div>
-        <div class="legend-item"><div class="color-box" style="background:#ff6f61;"></div><span>Innovación</span></div>
-      </div>
-      <p class="example-note">*Ejemplo ilustrativo de impacto progresivo del proyecto.</p>
-    </section>
-
-    <section id="kanban" data-aos="fade-up">
-      <h2>Gestión de Proyecto (Kanban)</h2>
-      <div class="kanban">
-        <div class="kanban-column">
-          <h3>Pendiente</h3>
-          <div class="task">Recopilación de datos financieros</div>
-          <div class="task">Identificación de indicadores PEI</div>
+        <div class="full-width">
+            <h2><span class="material-icons-sharp">description</span> Resumen Proyecto</h2>
+            <p>
+            El proyecto se centra en la automatización total de los estados financieros del área PEI de Aval Fiduciaria, implementando una arquitectura tecnológica con Power Query (para la transformación de datos) y macros en Excel (para la ejecución de tareas repetitivas). El resultado es una drástica reducción del tiempo de elaboración de tres horas a 30 minutos (83% de mejora) y la eliminación de errores manuales. Además, se integra el análisis horizontal y vertical al mismo tiempo la incorporación de cinco indicadores financieros.
+            </p>
+            <div class="keywords-box">
+                <strong>Palabras clave:</strong>
+                <span class="keyword-tag">Power Query</span>
+                <span class="keyword-tag">Macros (VBA)</span>
+                <span class="keyword-tag">Automatización</span>
+                <span class="keyword-tag">Estados Financieros</span>
+                <span class="keyword-tag">Parametros</span>
+                <span class="keyword-tag">ETL</span>
+            </div>
         </div>
-        <div class="kanban-column">
-          <h3>En Progreso</h3>
-          <div class="task">Desarrollo de macros y Power Query</div>
-          <div class="task">Integración con reportes contables</div>
+        
+        <div class="column-1">
+
+            <h2><span class="material-icons-sharp">emoji_objects</span> Objetivos del Proyecto</h2>
+            
+            <h3>Objetivo General</h3>
+            <p>
+            Implementar una solución tecnológica avanzada (integrando Power Query, macros en Excel y parámetros dinámicos) para la automatización total del proceso de elaboración de estados financieros del área PEI en Aval Fiduciaria. El propósito es reducir tiempos, minimizar errores y garantizar información confiable, incorporando indicadores financieros clave para la toma de decisiones.
+            </p>
+
+            <h3>Objetivos Específicos</h3>
+            <ul>
+                <li>Analizar los indicadores financieros.</li>
+                <li>Diseñar una arquitectura automatizada robusta y flexible para el ETL de datos.</li>
+                <li>Optimizar los procesos operativos.</li>
+            </ul>
+
+            <hr style="border: 0; border-top: 1px solid #dee2e6; margin: 20px 0;">
+
+            <h2><span class="material-icons-sharp">warning</span> Planteamiento del Problema</h2>
+            <p>El proceso manual de estados financieros en el área PEI genera ineficiencias críticas:</p>
+            <ul>
+                <li>Procesos lentos: Un promedio de 3 horas por informe.</li>
+                <li>Errores manuales frecuentes que comprometen la exactitud y confiabilidad.</li>
+                <li>Archivos pesados: 22 MB por archivo, dificultando la compartición y manejo operativo.</li>
+                <li>Atrasos en entregas y alta carga operativa del personal.</li>
+            </ul>
+            <blockquote style="margin-top: 20px; padding-left: 15px; border-left: 4px solid var(--color-highlight); color: #495057; font-style: italic;">
+                Pregunta de Investigación: ¿De qué manera una solución tecnológica (Power Query y macros) puede automatizar la elaboración de estados financieros y reducir tiempos, errores y riesgos operativos en el área PEI?
+            </blockquote>
+            
+            <hr style="border: 0; border-top: 1px solid #dee2e6; margin: 20px 0;">
+
+            <h2><span class="material-icons-sharp">auto_stories</span> Marco Teórico</h2>
+            <p>El sustento del proyecto se basa en la aplicación de metodologías de Data Management y RPA (Robotic Process Automation):</p>
+            <div class="icon-text"><span class="material-icons-sharp">memory</span><p><strong>Power Query (ETL):</strong> Herramienta principal para la conexión, transformación y limpieza de grandes volúmenes de datos, garantizando la calidad del dato. </p></div>
+            <div class="icon-text"><span class="material-icons-sharp">code</span><p><strong>Macros en VBA:</strong> Usado para la orquestación del proceso, como la ejecución automática de la actualización de Power Query y flujos de trabajo en Excel.</p></div>
+            <div class="icon-text"><span class="material-icons-sharp">insights</span><p><strong>Automatización de Procesos:</strong> Estrategia clave para reducir el riesgo operativo y redirigir el enfoque del equipo a tareas de valor añadido y análisis.</p></div>
+            
+            <hr style="border: 0; border-top: 1px solid #dee2e6; margin: 20px 0;">
+
+            <h2><span class="material-icons-sharp">book</span> Referencias Bibliográficas</h2>
+            <p>El proyecto se fundamenta en:</p>
+            <ul class="references-list">
+                <li>Metodología: Hernández Sampieri et al. (2014), Sabino (2014), Creswell (2014) – Tipos de estudio, diseños, instrumentos y observación.</li>
+                <li>Contabilidad y automatización: Appvizer (2024), Deloitte (2024), INCP (2020) – Indicadores financieros y automatización de procesos.</li>
+                <li>Herramientas Excel: Microsoft (2024a, 2024b) – Macros, VBA y Power Query.</li>
+            
+            </ul>
         </div>
-        <div class="kanban-column">
-          <h3>Completado</h3>
-          <div class="task">Validación de resultados</div>
-          <div class="task">Presentación de resultados finales</div>
+
+        <div class="column-2">
+            <h2><span class="material-icons-sharp">leaderboard</span> Resultados e Impacto Cuantificable</h2>
+
+            <div class="results-box">
+                <strong>Métricas de Desempeño <br> (Pre vs. Post)</strong><br>
+                <div class="metric">
+                    <span>Tiempo de Elaboración <br> (Elaboración Estados Financieros)</span>
+                    <span class="value">3 h → 30 min</span>
+                </div>
+                <div class="metric">
+                    <span>Reducción de Riesgo Operativo</span>
+                    <span class="value">Eliminado (100%)</span>
+                </div>
+                <div class="metric">
+                    <span>Tamaño del Archivo Final</span>
+                    <span class="value">22 MB → 1 MB</span>
+                </div>
+            </div>
+
+            <h2><span class="material-icons-sharp">data_usage</span> Resultados</h2>
+            <p>La solución incorpora el cálculo automático de indicadores clave para un análisis financiero más robusto y oportuno, fortaleciendo la toma de decisiones.</p>
+            <div class="kpi-grid">
+                <div class="kpi-card">
+                    <span class="kpi-value">5</span><br>
+                    <span class="kpi-label">Indicadores Financieros</span><br>
+                </div>
+                <div class="kpi-card">
+                    <span class="kpi-value">T-2.5h</span><br>
+                    <span class="kpi-label">Tiempo Ahorrado por EEFF</span><br>
+                </div>
+                <div class="kpi-card">
+                    <span class="kpi-value">100%</span><br>
+                    <span class="kpi-label">Minimización errores </span><br>
+                </div>
+                <div class="kpi-card">
+                    <span class="kpi-value">1 MB</span><br>
+                    <span class="kpi-label">Ahorro en tamaño de datos</span><br>
+                </div>
+            </div>
+
+           <br> <h2><span class="material-icons-sharp">construction</span> Arquitectura del Proyecto</h2>
+            <p> Se basa en la integración de herramientas de Microsoft Excel (Power Query y Macros) para transformar el proceso manual de elaboración de estados financieros en un flujo automatizado, escalable y confiable.  <br><br>  El esquema visual que representa la arquitectura de la solución propuesta es un flujo de datos que va desde la fuente hasta el informe final y el análisis: </p>
+            <div class="diagram-placeholder">
+                <br> [ Esquema Visual: Origen de Datos → Power Query (ETL) → Macros/VBA → Excel (Modelo de Datos) → Estados Financieros] <br>
+            </div>
+          <br>  <p style="text-align: center; font-style: italic; font-size: 0.9em; margin-top: -10px; color: #6c757d;">Diagrama Conceptual: Flujo de Automatización con ETL de Power Query</p><br>
+            
+            <div class="results-box" style="background: var(--color-background); color: var(--color-text-dark); border: 2px solid var(--color-secondary);">
+                <strong style="color: var(--color-primary); font-size: 1.5em; border-bottom: 2px dashed var(--color-secondary); padding-bottom: 10px;">Detalle de Indicadores Clave</strong>
+                <div class="metric" style="color: var(--color-text-dark); border-bottom: 1px solid rgba(0,0,0,0.1);">
+                    <span>1. Razón de Endeudamiento</span>
+                </div>
+                <div class="metric" style="color: var(--color-text-dark); border-bottom: 1px solid rgba(0,0,0,0.1);">
+                    <span>2. Margen Operacional</span>
+                </div>
+                <div class="metric" style="color: var(--color-text-dark); border-bottom: 1px solid rgba(0,0,0,0.1);">
+                    <span>3. Rotación de Cartera</span>
+                </div>
+                <div class="metric" style="color: var(--color-text-dark); border-bottom: 1px solid rgba(0,0,0,0.1);">
+                    <span>4. Prueba Ácida</span>
+                </div>
+                <div class="metric" style="color: var(--color-text-dark);">
+                    <span>5. Rentabilidad del Patrimonio</span>
+                </div>
+            </div>
+            </div>
+
+        <div class="column-3">
+            <h2><span class="material-icons-sharp">military_tech</span> Beneficios Clave</h2>
+            <p>La automatización impacta positivamente a nivel operativo y estratégico:</p>
+            <ul>
+                <li>Aumento significativo de la Productividad (Liberación de 83% del tiempo invertido).</li>
+                <li>Mejor Bienestar Laboral al eliminar tareas tediosas y repetitivas.</li>
+                <li>Mayor Confiabilidad y Oportunidad de la información financiera para la toma de decisiones.</li>
+                <li>Menor consumo de almacenamiento y mejor rendimiento de archivos.</li>
+            </ul>
+
+            <hr style="border: 0; border-top: 1px solid #dee2e6; margin: 20px 0;">
+
+            <h2><span class="material-icons-sharp">science</span> Metodología</h2>
+            <p>El proyecto se basa en una investigación aplicada con diseño pre-experimental. Se evalúa el rendimiento del proceso en las fases pre-implementación (Manual) y post-implementación (Automatizado).</p>
+
+            <h3>Instrumentos de Medición</h3>
+            <ul>
+                <li>Cronometraje: Para validar la reducción objetiva del tiempo de elaboración.</li>
+                <li>Listas de verificación de errores: Para auditar la eliminación de fallas en la data y asegurar la exactitud.</li>
+                <li>Encuestas de Usabilidad y Satisfacción: Para medir la aceptación y el impacto en el equipo operativo.</li>
+            </ul>
+            
+            <hr style="border: 0; border-top: 1px solid #dee2e6; margin: 20px 0;">
+
+            <h2><span class="material-icons-sharp">category</span> Alcances y Limitaciones</h2>
+            <div class="section-2-col">
+                <div class="incluye">
+                    <h3>✅ Incluye</h3>
+                    <ul style="color: var(--color-text-dark);">
+                        <li>Automatización Integral del proceso de generación de estados financieros del área PEI.</li>
+                        <li>Integración de Indicadores : Incorporación de cinco (5) indicadores financieros clave en los reportes automatizados. Complemento con análisis horizontal y vertical para evaluar tendencias y variaciones.</li>
+                        <li>Capacitación del equipo del área PEI en el uso y mantenimiento de la solución automatizada.</li>
+                    </ul>
+                </div>
+                <div class="no-incluye">
+                    <h3>🚫 No Incluye</h3>
+                    <ul style="color: var(--color-text-dark);">
+                        <li>Aspectos legales, fiscales o tributarios relacionados con los estados financieros.</li>
+                        <li>Integración con sistemas externos.</li>
+                        <li>Desarrollo de análisis financieros adicionales fuera de los indicadores definidos.</li>
+                        <li>Desarrollo de un Dashboard en Power BI.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <hr style="border: 0; border-top: 1px solid #dee2e6; margin: 20px 0;">
+
+            <h2><span class="material-icons-sharp">schedule</span> Cronograma y Presupuesto</h2>
+            <p>Se utilizó la metodología Kanban para la gestión ágil del proyecto (5 semanas de ejecución).</p>
+            <div class="icon-text"><span class="material-icons-sharp">paid</span><p>Costo de Implementación: CERO. Se emplearon únicamente herramientas de software y talento humano ya disponibles dentro de la organización (Excel, Power Query, VBA).</p></div>
+            
         </div>
-      </div>
-      <p class="example-note">*Ejemplo de implementación del método Kanban aplicado al proyecto.</p>
-    </section>
 
-    <section id="conclusiones" data-aos="fade-up">
-      <h2>Conclusiones y próximos pasos</h2>
-      <ul>
-        <li>La automatización redujo significativamente tiempos y tamaño de archivos, mejorando la calidad y disponibilidad de la información.</li>
-        <li>Se confirmaron beneficios operativos y una reducción sustancial de errores manuales en la consolidación.</li>
-        <li>Se recomienda escalar la solución a otras áreas contables y evaluar integración con Power BI para cuadros ejecutivos.</li>
-      </ul>
-      <h3 style="color:#9aa4b2; font-size:14px; margin-top:12px;">Próximos pasos</h3>
-      <ul>
-        <li>Plan piloto de expansión a otra unidad durante 2 meses.</li>
-        <li>Diseño de dashboards ejecutivos en Power BI (fase de trabajo: 4 semanas).</li>
-        <li>Monitoreo y ajuste continuo de indicadores y reglas en Power Query.</li>
-      </ul>
-    </section>
 
-    <section id="riesgos" data-aos="fade-up">
-      <h2>Riesgos y mitigación</h2>
-      <ul>
-        <li><strong>Dependencia tecnológica:</strong> Mitigar con documentación y capacitación.</li>
-        <li><strong>Calidad de datos:</strong> Validaciones automáticas y listas de chequeo.</li>
-        <li><strong>Cambios en fuentes:</strong> Parametrizar conexiones y pruebas periódicas.</li>
-      </ul>
-      <p class="example-note">*Contenido resumido. Datos y cronograma son de ejemplo para la presentación.</p>
-    </section>
-  </main>
+    </div>
+    <div class="footer">
+        © 2025 Aval Fiduciaria | Presentación Proyecto.
+    </div>
 
-  <footer data-aos="fade-up">
-    Cali, Valle del Cauca — 10 de noviembre de 2025 | Aval Fiduciaria — Área PEI.
-  </footer>
-
-  <script>
-    AOS.init({duration:1000});
-
-    new Chart(document.getElementById('chartResumen'), {
-      type: 'doughnut',
-      data: {labels: ['Procesos automatizados', 'Manuales'], datasets: [{data: [85, 15], backgroundColor: ['#00d4ff', '#003566']}]},
-      options: {plugins:{legend:{display:false}}, animation:{duration:1500}}
-    });
-
-    new Chart(document.getElementById('chartResultados'), {
-      type: 'bar',
-      data: {labels: ['Tiempo', 'Tamaño', 'Ahorro'], datasets: [{label: 'Mejora', data: [83, 95, 83], backgroundColor: ['#00d4ff','#00b4d8','#90e0ef']}]},
-      options:{scales:{x:{ticks:{color:'#fff'}},y:{ticks:{color:'#fff'}}}, plugins:{legend:{display:false}}, animation:{duration:1200}}
-    });
-
-    new Chart(document.getElementById('chartIndicadores'), {
-      type:'radar',
-      data:{labels:['Liquidez','Rentabilidad','Endeudamiento','Margen','Rotación'],datasets:[{label:'Nivel',data:[90,85,70,88,92],backgroundColor:'rgba(0,212,255,0.2)',borderColor:'#00d4ff',borderWidth:2,pointBackgroundColor:'#00d4ff'}]},
-      options:{scales:{r:{grid:{color:'rgba(255,255,255,0.2)'},pointLabels:{color:'#fff'}}}, plugins:{legend:{display:false}}, animation:{duration:1200}}
-    });
-
-    new Chart(document.getElementById('chartImpacto'), {
-      type:'line',
-      data:{labels:['Diagnóstico','Desarrollo','Implementación','Resultados'],datasets:[
-        {label:'Eficiencia',data:[20,50,80,100],borderColor:'#00d4ff',backgroundColor:'rgba(0,212,255,0.3)',fill:true,tension:0.3},
-        {label:'Innovación',data:[10,30,60,90],borderColor:'#ff6f61',backgroundColor:'rgba(255,111,97,0.3)',fill:true,tension:0.3}
-      ]},
-      options:{scales:{x:{ticks:{color:'#fff'}},y:{ticks:{color:'#fff'}}}, plugins:{legend:{display:false}}, animation:{duration:1200}}
-    });
-  </script>
+</div>
 </body>
 </html>
